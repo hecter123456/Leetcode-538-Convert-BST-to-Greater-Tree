@@ -12,9 +12,27 @@ class unitest(unittest.TestCase):
         tree = TreeSolution.TreeSolution()
         root = tree.AddBinaryTreeNode(row)
         Solution().convertBST(root)
-        self.assertEqual(root.val,18)
-        self.assertEqual(root.left.val,20)
-        self.assertEqual(root.right.val,13)
+        ans = [18,20,13]
+        ansqueue = [root]
+        i = 0
+        for node in ansqueue:
+            if i < len(ans):
+                self.assertEqual(root.val,ans[i])
+                i += 1
+            ansqueue += (node.left,node.right)
+    def testNegativeNode(self):
+        row = [2,0,3,-4,1]
+        tree = TreeSolution.TreeSolution()
+        root = tree.AddBinaryTreeNode(row)
+        Solution().convertBST(root)
+        ans = [5,6,3,2,6]
+        ansqueue = [root]
+        i = 0
+        for node in ansqueue:
+            if i < len(ans):
+                self.assertEqual(root.val,ans[i])
+                i += 1
+            ansqueue += (node.left,node.right)
 
 class Solution(object):
     def GreaterTree(self,root,num):

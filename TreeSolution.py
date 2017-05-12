@@ -51,6 +51,16 @@ class TreeSolution(object):
                 i = i+1
             queue += filter(None, (node.left,node.right))
         return self.root
+    def checkAns(self,root,ans):
+        if not root:
+            return
+        ansqueue = [root]
+        i = 0
+        for node in ansqueue:
+            if i < len(ans):
+                self.assertEqual(root.val,ans[i])
+                i += 1
+            ansqueue += (node.left,node.right)
 
 if __name__ == '__main__':
     unittest.main()
