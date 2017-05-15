@@ -11,43 +11,40 @@ class unitest(unittest.TestCase):
         row = [5,2,13]
         tree = TreeSolution.TreeSolution()
         root = tree.AddBinaryTreeNode(row)
-        Solution().convertBST(root)
+        root = Solution().convertBST(root)
         ans = [18,20,13]
-        ansqueue = [root]
-        i = 0
-        for node in ansqueue:
-            if i < len(ans):
-                self.assertEqual(root.val,ans[i])
-                i += 1
-            ansqueue += (node.left,node.right)
-    def testNegativeNode(self):
+        tree.checkAns(root,ans)
+    def testThirdLevelBST(self):
         row = [2,0,3,-4,1]
         tree = TreeSolution.TreeSolution()
         root = tree.AddBinaryTreeNode(row)
-        Solution().convertBST(root)
+        root = Solution().convertBST(root)
         ans = [5,6,3,2,6]
-        ansqueue = [root]
-        i = 0
-        for node in ansqueue:
-            if i < len(ans):
-                self.assertEqual(root.val,ans[i])
-                i += 1
-            ansqueue += (node.left,node.right)
+        tree.checkAns(root,ans)
+    def testRightChildrenNodeBST(self):
+        row = [1,0,4,-2,None,3]
+        tree = TreeSolution.TreeSolution()
+        root = tree.AddBinaryTreeNode(row)
+        root = Solution().convertBST(root)
+        ans = [8,8,4,6,None,7]
+        tree.checkAns(root,ans)
 
 class Solution(object):
     def GreaterTree(self,root,num):
         if not root:
             return 0
-        add = 0
+        rightVal = 0
+        leftVal = 0
         if root.right:
-            add =  self.GreaterTree(root.right,0)
-        root.val += (add+num)
+            rightVal = self.GreaterTree(root.right,num)
+        root.val += (rightVal + num)
         if root.left:
-            self.GreaterTree(root.left,root.val)
-        return root.val
+            leftVal = self.GreaterTree(root.left,root.val)
+        return (root.val + leftVal - num)
     def convertBST(self, root):
         if not root:
             return []
         self.GreaterTree(root,0)
+        return root
 if __name__ == '__main__':
     unittest.main()
