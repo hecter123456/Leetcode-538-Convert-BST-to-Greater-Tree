@@ -32,11 +32,11 @@ class unitest(unittest.TestCase):
 class Solution(object):
     def GreaterTree(self,root,num):
         if not root:
-            return 0
+            return num
         rightVal = self.GreaterTree(root.right,num)
-        root.val += (rightVal + num)
+        root.val += rightVal
         leftVal = self.GreaterTree(root.left,root.val)
-        return (root.val + leftVal - num)
+        return leftVal
     def convertBST(self, root):
         if not root:
             return []
