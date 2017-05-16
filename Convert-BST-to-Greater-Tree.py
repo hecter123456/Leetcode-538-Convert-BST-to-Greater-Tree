@@ -33,13 +33,9 @@ class Solution(object):
     def GreaterTree(self,root,num):
         if not root:
             return 0
-        rightVal = 0
-        leftVal = 0
-        if root.right:
-            rightVal = self.GreaterTree(root.right,num)
+        rightVal = self.GreaterTree(root.right,num)
         root.val += (rightVal + num)
-        if root.left:
-            leftVal = self.GreaterTree(root.left,root.val)
+        leftVal = self.GreaterTree(root.left,root.val)
         return (root.val + leftVal - num)
     def convertBST(self, root):
         if not root:
